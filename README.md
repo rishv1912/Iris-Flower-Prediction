@@ -2,4 +2,7 @@
 
 
 ## Image of the Site.
-![](site_img.png)
+![](static/img/site_img.png)
+
+## Flow Chart 
+![](static/img/flow-chart.png)
