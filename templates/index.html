@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Iris Flower Prediction</title>
     <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-        }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
       h1 {
         text-align: center;
       }
@@ -21,49 +21,67 @@
         /* border: 2px solid red; */
         margin: auto;
       }
-      .container{
+      .container {
         font-size: 30px;
         margin: auto;
         align-items: center;
         justify-content: center;
       }
-      p{
+      p {
         font-size: 25px;
       }
     </style>
+
+<link rel="icon" href="static/img/Untitled.png" type="image/x-icon">
+
   </head>
   <body>
     <h1>Iris Flower Prediction</h1>
-    
+
     <div id="main">
-        <div class="container">
-            <p>In CentiMeter(CM)</p>
+      <div class="container">
+        <p>In CentiMeter(CM)</p>
 
         <form action="/predict" method="post">
+          <!-- <div class="SepalLength"> -->
+          <label for="sepal_length">Sepal Length</label>
+          <input
+            id="sepal_length"
+            type="text"
+            name="sepal_length"
+            required
+          /><br />
+          <!-- </div> -->
+          <!-- <div class="SepalWidth"> -->
+          <label for="sepal_width">Sepal Width</label>
+          <input id="sepal_width" type="text" name="sepal_width" /><br />
+          <!-- </div> -->
+          <!-- <div class="PetalLength"> -->
+          <label for="petal_length">Petal Length</label>
+          <input id="petal_length" type="text" name="petal_length" /><br />
+          <!-- </div> -->
+          <!-- <div class="PetalWidth"> -->
+          <label for="petal_width">Petal Width</label>
+          <input id="petal_width" type="text" name="petal_width" /><br />
+          <!-- </div> -->
+          <input type="submit" value="predict" />
+        </form>
 
-        
-      <!-- <div class="SepalLength"> -->
-        <label for="sepal_length">Sepal Length</label> 
-        <input id="sepal_length" type="text" name="sepal_length" required/><br>
-      <!-- </div> -->
-      <!-- <div class="SepalWidth"> -->
-        <label for="sepal_width">Sepal Width</label>
-        <input id="sepal_width" type="text" name="sepal_width"/><br>
-      <!-- </div> -->
-      <!-- <div class="PetalLength"> -->
-        <label for="petal_length">Petal Length</label>
-        <input id="petal_length" type="text" name="petal_length"/><br>
-      <!-- </div> -->
-      <!-- <div class="PetalWidth"> -->
-        <label for="petal_width">Petal Width</label>
-        <input id="petal_width" type="text" name="petal_width" /><br>
-      <!-- </div> -->
-      <input type="submit" value="predict">
-    </form>
+        <p>Output :{{prediction}}</p>
+        <!-- <div class="socials">
+          <p>Find Me</p>
+          <a href="https://x.com/anandrishv" target="_blank">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/anandrishvli/" target="_blank">
+  
+            <i class="fab fa-linkedin"></i>
+          </a>
+  
+        </div> -->
+      </div>
 
-      <p>Output :{{prediction}}</p>
-
-    </div>
+      
     </div>
   </body>
 </html>
