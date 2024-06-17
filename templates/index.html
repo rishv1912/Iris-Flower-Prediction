@@ -64,10 +64,13 @@
           <label for="petal_width">Petal Width</label>
           <input id="petal_width" type="text" name="petal_width" /><br />
           <!-- </div> -->
-          <input type="submit" value="predict" />
+          <input type="submit" value="Predict" />
+          <button id="clear-button" onclick="clearOutput()">Clear</button>
+
+          <!-- <input type="clear" value="Clear" /> -->
         </form>
 
-        <p>Output :{{prediction}}</p>
+        <p class="output">Output :{{prediction}}</p>
         <!-- <div class="socials">
           <p>Find Me</p>
           <a href="https://x.com/anandrishv" target="_blank">
@@ -79,9 +82,26 @@
           </a>
   
         </div> -->
+
+        <!-- <div class="result">
+          {% if prediction %}
+              <p id="prediction">Output: {{ prediction }}</p>
+              <button id="clear-button" onclick="clearOutput()">Clear</button>
+          {% endif %}
+      </div> -->
       </div>
 
       
     </div>
   </body>
+  <script>
+    // function clearOutput() {
+    //     // document.getElementById('prediction').innerText = '';
+    //     document.getElementById('clear-button').classList.add('hidden');
+    // }
+
+    function clearOutput() {
+            document.getElementsByClassName('output').innerHTML = '';
+        }
+</script>
 </html>
