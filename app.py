@@ -2,6 +2,7 @@ from flask import Flask,render_template,redirect,url_for,request
 import joblib
 import pandas as pd
 import csv
+import os
 
 
 app = Flask(__name__)
@@ -15,19 +16,23 @@ def index():
     return render_template('index.html',**locals())
 
 
-# user_predicted_values = { 'sepal_length':[],
-#                          'sepal_width':[],
-#                          'petal_length':[],
-#                          'petal_width':[],
-#                          'species':[]}
 
+CSV_FILE = 'UserDatabse/user_data.csv'
 
-# creating the dataframe for storing later.
-# user_data = pd.DataFrame(columns=['sepal_length',
-#                          'sepal_width',
-#                          'petal_length',
-#                          'petal_width',
-#                          'species'])
+# Ensuring that the directory exists
+os.makedirs(os.path.dirname(CSV_FILE), exist_ok=True)
+
+# Define a function to append data to the CSV file
+def append_to_csv(data, filename):
+    # Check if the file exists to write the header
+    file_exists = os.path.isfile(filename)
+    with open(filename, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        if not file_exists:
+            # Write header only if file does not exist
+            writer.writerow(["sepal_length", "sepal_width", "petal_length", "petal_width", "species"])
+        writer.writerow(data)
+
 
 
 @app.route('/predict',methods=['POST','GET'])
@@ -39,55 +44,16 @@ def submit():
         petal_width = float(request.form['petal_width'])
         prediction = model.predict([[sepal_length,sepal_width,petal_length,petal_width]])[0]
 
-        # user_predicted_values = { 'sepal_length':[],
-        #                  'sepal_width':[],
-        #                  'petal_length':[],
-        #                  'petal_width':[],
-        #                  'species':[]}
-        
-        user_predicted_values = { 'sepal_length':sepal_length,
-                         'sepal_width':sepal_width,
-                         'petal_length':petal_length,
-                         'petal_width':petal_width,
-                         'species':prediction}
-
-
-        # user_predicted_values['sepal_length'].append(sepal_length)
-        # user_predicted_values['sepal_width'].append(sepal_width)
-        # user_predicted_values['petal_length'].append(petal_length)
-        # user_predicted_values['petal_width'].append(petal_length)
-        # user_predicted_values['species'].append(prediction)
-
-        # user_predicted_dataframe = pd.DataFrame(user_predicted_values)
-        # pd.concat([user_data,user_predicted_dataframe],axis=1)
-        # print(user_data)
-
-        filename = "UserDatabase/user_data.csv"
-
         # Writing to a CSV file
-        with open(filename, mode='w', newline='') as file:
-            # Create a writer object
-            writer = csv.DictWriter(file, fieldnames=["sepal_length", "sepal_width", "petal_length","petal_width","species"])
+        append_to_csv([sepal_length, sepal_width, petal_length, petal_width, prediction], CSV_FILE)
 
-            # Write the header
-            writer.writeheader()
-
-            # Write the data
-            for row in user_predicted_values:
-                writer.writerow(row)
-
-        print(f"Data has been written to {filename}")
-
-
-
-
-        
-        
-        
  
-    # using **locals() instead of dictionary for context and sending it the frontend is sometimes hectic. It saves the time and automatically sees and send all the data to index.html file
+    
+    return render_template('index.html',**locals()) # using **locals() instead of dictionary for context and sending it the frontend is sometimes hectic. It saves the time and automatically sees and send all the data to index.html file
 
-    return render_template('index.html',**locals())
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
